@@ -1,3 +1,4 @@
+import 'package:delimeals/models/meal.dart';
 import 'package:delimeals/widgets/main_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -5,15 +6,28 @@ import 'categories_screen.dart';
 import 'favorites_screen.dart';
 
 class TabsScreen extends StatefulWidget {
+  List<Meal> favoriteMeals;
+
+  TabsScreen(this.favoriteMeals);
+
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  final List<Map<String, Object>> _pages = [
-    {'page': CategoriesScreen(), 'title': 'Categories'},
-    {'page': FavoritesScreen(), 'title': 'Your Favorites'},
-  ];
+  List<Map<String, Object>> _pages;
+
+  @override
+  initState() {
+    _pages = [
+      {'page': CategoriesScreen(), 'title': 'Categories'},
+      {
+        'page': FavoritesScreen(widget.favoriteMeals),
+        'title': 'Your Favorites'
+      },
+    ];
+    super.initState();
+  }
 
   int _selectedPageIndex = 0;
 
